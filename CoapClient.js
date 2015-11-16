@@ -1,4 +1,4 @@
-// CoapClient 
+// CoapClient
 
 'use strict';
 
@@ -10,23 +10,20 @@ module.exports.command = function(){
 	var params = {
 		method: 'put',
 		pathname: 'leds',
-		confirmable: true,
+		confirmable: true
 	};
 
-	//Getting RGB value from user here using this string format= "nnn nnn nnn" nnn=000->255 
+	//Getting RGB values from user here using string format= "nnn nnn nnn" nnn=000->255 
   	var util = require('util');
 	process.stdin.on('data', function (text) {	
-    var dataRGB=formatString(text);
-    console.log(dataRGB);
-    var request = Coap.createRequest(params,dataRGB);
+    var request = Coap.createRequest(params,formatStringRGB(text));
 	request.send();
   	});
 
-  	function formatString(str) {
+  	function formatStringRGB(str) {
 		var red = str.slice(0, 3);
 	    var green = str.slice(4, 7);
 	    var blue = str.slice(8, 11);
-	    var formatRGB= "r="+red+'&'+"g="+green+'&'+"b="+blue;
-	    return formatRGB;
+	    return "r="+red+'&'+"g="+green+'&'+"b="+blue;
 	}
 }
